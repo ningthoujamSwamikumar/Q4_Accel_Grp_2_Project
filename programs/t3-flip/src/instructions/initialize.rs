@@ -18,6 +18,8 @@ pub struct Initialize<'info> {
     )]
     pub game_state: Account<'info, GameState>,
 
+    /// CHECK: This is not dangerous because we don't read or write from this account
+    pub validator: UncheckedAccount<'info>,
     pub system_program: Program<'info, System>,
 }
 

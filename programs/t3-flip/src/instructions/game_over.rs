@@ -9,6 +9,7 @@ pub struct GameOver<'info> {
 
     #[account(
         mut,
+        close=player,
         seeds = [b"game_state", game_state.current_game_id.to_le_bytes().as_ref(), player.key().as_ref()],
         bump = game_state.bump
     )]
@@ -20,7 +21,7 @@ pub struct GameOver<'info> {
 impl GameOver<'_> {
     pub fn game_over(&mut self) -> Result<()> {
         // if rewards is empty, we have to close game state
-        // and if rewards is not empty we have to do what? ig we shouldn't have separate claim_rewards
+        // and if rewards is not empty then we we mint the nfts to the player
         Ok(())
     }
 }
