@@ -9,13 +9,25 @@ pub use constants::*;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("8t3PKGA3w4QQS7KLrDXpQzDdnd4yz2jJcLahoKUG8LTT");
+declare_id!("69bDTx8B9AEGkUDWiHufnzvx69HYhGtSsgJ7KuDrZiWL");
 
 #[program]
 pub mod t3_flip {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        initialize::handler(ctx)
+    pub fn initialize(ctx: Context<Initialize>, seed: u64) -> Result<()> {
+        ctx.accounts.init_game(seed, &ctx.bumps)
+    }
+
+    pub fn guess(ctx: Context<Guess>, nft_id: u8) -> Result<()> {
+        ctx.accounts.guess(nft_id)
+    }
+
+    pub fn game_over(ctx: Context<GameOver>) -> Result<()> {
+        ctx.accounts.game_over()
+    }
+
+    pub fn vrf_callback(ctx: Context<VrfCallback>, rnd: u64) -> Result<()> {
+        ctx.accounts.update_game_state(rnd)
     }
 }
